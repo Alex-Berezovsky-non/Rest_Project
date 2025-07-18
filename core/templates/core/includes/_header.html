@@ -1,0 +1,12 @@
+<header class="header">
+    <nav>
+        <a href="{% url 'home' %}" class="logo">Al Dente</a>
+        <div class="nav-links">
+            <a href="{% url 'contacts' %}">Контакты</a>
+        </div>
+        <div class="current-time">
+            {% load core_tags %}
+            {% current_time '%H:%M' %}
+        </div>
+    </nav>
+</header>

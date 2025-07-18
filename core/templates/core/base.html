@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Al Dente{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'scss/main.css' %}">
+</head>
+<body>
+    {% include 'core/includes/_header.html' %}
+
+    <main class="container">
+        {% block content %}
+        <!-- Основное содержимое страницы -->
+        {% endblock %}
+    </main>
+
+    {% include 'core/includes/_footer.html' %}
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
