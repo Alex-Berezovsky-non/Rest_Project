@@ -1,0 +1,45 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="menu-container">
+    <div class="menu-filters">
+        <!-- Фильтры будут добавлены позже -->
+        <h2>Наше меню</h2>
+    </div>
+    
+    <div class="dish-grid">
+        {% for dish in dishes %}
+        <div class="dish-card">
+            {% if dish.image %}
+                <img src="{{ dish.image.url }}" 
+                     alt="{{ dish.name }}" 
+                     class="dish-photo"
+                     onerror="this.onerror=null;this.src='{% static 'menu/images/default_dish.jpg' %}'">
+            {% else %}
+                <img src="{% static 'menu/images/default_dish.jpg' %}" 
+                     alt="{{ dish.name }}"
+                     class="dish-photo">
+            {% endif %}
+            
+            <div class="dish-info">
+                <h3>{{ dish.name }}</h3>
+                <div class="price-badge">{{ dish.price }} ₽</div>
+                
+                <div class="dish-tags">
+                    {% if dish.is_vegan %}<span class="tag vegan">🌱 Вегетарианское</span>{% endif %}
+                    {% if dish.is_spicy %}<span class="tag spicy">🌶 Острое</span>{% endif %}
+                    {% if dish.is_chefs_choice %}<span class="tag chef">👨‍🍳 Выбор шефа</span>{% endif %}
+                </div>
+                
+                <a href="{{ dish.get_absolute_url }}" class="btn details-btn">Подробнее</a>
+            </div>
+        </div>
+        {% empty %}
+        <div class="no-dishes">
+            <p>К сожалению, блюда временно отсутствуют в меню.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

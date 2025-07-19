@@ -1,0 +1,46 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="dish-detail-container">
+    <div class="dish-header">
+        {% if dish.image %}
+            <img src="{{ dish.image.url }}" 
+                 alt="{{ dish.name }}" 
+                 class="dish-main-photo"
+                 onerror="this.onerror=null;this.src='{% static 'menu/images/default_dish_large.jpg' %}'">
+        {% else %}
+            <img src="{% static 'menu/images/default_dish_large.jpg' %}" 
+                 alt="{{ dish.name }}"
+                 class="dish-main-photo">
+        {% endif %}
+        
+        <div class="dish-heading">
+            <h1>{{ dish.name }}</h1>
+            <div class="price">{{ dish.price }} ₽</div>
+            
+            {% if dish.weight %}
+            <div class="weight">Вес: {{ dish.weight }} г</div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="dish-meta">
+        {% if dish.is_vegan %}<span class="meta-tag vegan">🌱 Вегетарианское</span>{% endif %}
+        {% if dish.is_spicy %}<span class="meta-tag spicy">🌶 Острое</span>{% endif %}
+        {% if dish.is_chefs_choice %}<span class="meta-tag chef">👨‍🍳 Выбор шефа</span>{% endif %}
+    </div>
+    
+    <div class="ingredients-section">
+        <h2>Ингредиенты</h2>
+        <div class="ingredients-list">
+            {{ dish.ingredients|linebreaks }}
+        </div>
+    </div>
+    
+    <div class="dish-actions">
+        <a href="{% url 'menu:dish_list' %}" class="btn back-btn">← Назад в меню</a>
+        <button class="btn order-btn">Заказать</button>
+    </div>
+</div>
+{% endblock %}
