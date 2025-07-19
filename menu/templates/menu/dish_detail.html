@@ -1,6 +1,10 @@
 {% extends "core/base.html" %}
 {% load static %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'menu/css/menu.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class="dish-detail-container">
     <div class="dish-header">
