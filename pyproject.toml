@@ -12,7 +12,10 @@ dependencies = [
     "python-dotenv (>=1.1.1,<2.0.0)",
     "openai (>=1.96.1,<2.0.0)",
     "markdown (>=3.8.2,<4.0.0)",
-    "pillow (>=11.3.0,<12.0.0)"
+    "pillow (>=11.3.0,<12.0.0)",
+    "django-stubs-ext (>=5.2.2,<6.0.0)",
+    "mypy (>=1.17.0,<2.0.0)",
+    "python-telegram-bot (>=22.3,<23.0)"
 ]
 
 [tool.poetry]

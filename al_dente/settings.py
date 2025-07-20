@@ -21,6 +21,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core.apps.CoreConfig',
     'menu.apps.MenuConfig',
+    'reservations.apps.ReservationsConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -97,3 +99,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Настройки бронирования
+RESERVATION_OPENING_HOUR = 10  # 10:00
+RESERVATION_CLOSING_HOUR = 22  # 22:00
+RESERVATION_SLOT_DURATION = 30  # 30 минут
+
+# Email настройки
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.yourprovider.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'noreply@yourdomain.com'
+EMAIL_HOST_PASSWORD = 'yourpassword'
+DEFAULT_FROM_EMAIL = 'noreply@yourdomain.com'
+ADMIN_EMAIL = 'admin@yourdomain.com'

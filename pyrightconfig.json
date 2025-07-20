@@ -1,0 +1,6 @@
+{
+  "exclude": ["migrations", "venv"],
+  "pythonVersion": "3.10",
+  "reportMissingTypeStubs": false,
+  "typeCheckingMode": "strict"
+}
