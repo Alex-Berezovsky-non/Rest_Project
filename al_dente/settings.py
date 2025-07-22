@@ -114,3 +114,7 @@ EMAIL_HOST_USER = 'noreply@yourdomain.com'
 EMAIL_HOST_PASSWORD = 'yourpassword'
 DEFAULT_FROM_EMAIL = 'noreply@yourdomain.com'
 ADMIN_EMAIL = 'admin@yourdomain.com'
+
+TELEGRAM_BOT_API_KEY = os.getenv("TELEGRAM_BOT_API_KEY")
+TELEGRAM_USER_ID = os.getenv("TELEGRAM_USER_ID")
+BASE_URL = os.getenv("BASE_URL")
