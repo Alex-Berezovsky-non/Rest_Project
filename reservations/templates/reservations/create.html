@@ -3,6 +3,7 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'reservations/css/reservations.css' %}">
+{{ form.media }}
 {% endblock %}
 
 {% block content %}
@@ -21,6 +22,14 @@
     
     <form method="post" class="reservation-form">
         {% csrf_token %}
+        
+        {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            {% for error in form.non_field_errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+        {% endif %}
         
         <div class="form-group">
             <label for="{{ form.customer_name.id_for_label }}">Ваше имя</label>

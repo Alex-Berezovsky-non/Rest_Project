@@ -210,6 +210,23 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-bootstrap-datepicker-plus"
+version = "5.0.5"
+description = "Bootstrap3/Bootstrap4/Bootstrap5 DatePickerInput, TimePickerInput, DateTimePickerInput, MonthPickerInput, YearPickerInput"
+optional = false
+python-versions = ">=3.8,<4.0"
+groups = ["main"]
+files = [
+    {file = "django_bootstrap_datepicker_plus-5.0.5-py3-none-any.whl", hash = "sha256:f0818dcaca6824f2bc3b42b53e2cd0e42e9ceb2c8802254f9d38d4cce04b31d8"},
+    {file = "django_bootstrap_datepicker_plus-5.0.5.tar.gz", hash = "sha256:ea5e2bc2137a72b57ba10d2a5f18373049b0d252052f921e5a76c260eaaa35ee"},
+]
+
+[package.dependencies]
+Django = ">=2,<6"
+pydantic = "*"
+typing-extensions = "*"
+
+[[package]]
 name = "django-stubs-ext"
 version = "5.2.2"
 description = "Monkey-patching and extensions for django-stubs"
@@ -940,5 +957,5 @@ zstd = ["zstandard (>=0.18.0)"]
 
 [metadata]
 lock-version = "2.1"
-python-versions = ">=3.12"
-content-hash = "0daa0323e154f8dd29316fa3a3f27e1900946c2e10ca63917b3fe5d6698478ff"
+python-versions = ">=3.12,<4.0"
+content-hash = "2cf3e5046aa08fd771cd13fa2d8c2ad35d4aca01f6647bf3a37bbdf4c9b1f17c"
