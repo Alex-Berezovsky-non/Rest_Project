@@ -1,15 +1,53 @@
-{% extends 'reviews/list.html' %}
+{% extends 'core/base.html' %}
 
-{% block reviews_title %}Последние отзывы{% endblock %}
-
-{% block reviews_extra %}
-<section class="hero">
+{% block content %}
+<div class="main-content">
+  <section class="hero">
     <h1>{{ welcome_message }}</h1>
+    <p>Адрес: {{ address }}</p>
+    <p>Телефон: {{ phone }}</p>
     <p>Сайт находится в разработке. Скоро здесь появится наше меню!</p>
-</section>
+  </section>
 
-<section class="about">
+  <section class="about">
     <h2>О нашем ресторане</h2>
     <p>Al Dente - это настоящая итальянская кухня с 1995 года.</p>
-</section>
+  </section>
+</div>
+
+<!-- Блок отзывов -->
+<div class="reviews-section">
+  <h2>Отзывы наших клиентов</h2>
+  
+  {% if reviews %}
+    <div class="reviews-container">
+      {% for review in reviews %}
+        <div class="review-card">
+          <div class="review-header">
+            <div class="stars">
+              {% for i in "12345" %}
+                <span class="star {% if forloop.counter <= review.rating %}active{% endif %}">★</span>
+              {% endfor %}
+            </div>
+            <span class="review-author">
+              {% if review.author %}
+                {{ review.author.get_full_name|default:review.author.username }}
+              {% else %}
+                {{ review.author_name|default:"Аноним" }}
+              {% endif %}
+            </span>
+            <span class="review-date">{{ review.created_at|date:"d.m.Y" }}</span>
+          </div>
+          <div class="review-text">
+            <p>{{ review.text }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="no-reviews">
+      <p>Пока нет отзывов. Будьте первым!</p>
+    </div>
+  {% endif %}
+</div>
 {% endblock %}
