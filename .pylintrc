@@ -1,0 +1,8 @@
+[MASTER]
+load-plugins=pylint_django
+init-hook='import os; os.environ.setdefault("DJANGO_SETTINGS_MODULE", "al_dente.settings"); import django; django.setup()'
+
+[FORMAT]
+max-line-length=120
+[MESSAGES CONTROL]
+disable=missing-module-docstring,missing-class-docstring
