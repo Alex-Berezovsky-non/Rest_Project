@@ -1,0 +1,51 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}Оставить отзыв | Al Dente{% endblock %}
+
+{% block content %}
+<div class="container review-container">
+    <h1 class="review-title">Оставить отзыв</h1>
+    <form method="post" id="review-form" class="review-form">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label class="rating-label">Ваша оценка:</label>
+            <div class="star-rating">
+                {% for i in "12345" %}
+                    <span class="star" data-value="{{ i }}" aria-label="Оценка {{ i }} из 5">★</span>
+                {% endfor %}
+                <input type="hidden" name="rating" id="rating-input" value="{{ form.rating.value|default:'0' }}" required>
+                <span class="rating-hint">Наведите и кликните для выбора оценки (1-5)</span>
+            </div>
+            {% if form.rating.errors %}
+                <div class="error">{{ form.rating.errors }}</div>
+            {% endif %}
+        </div>
+
+        {% if not user.is_authenticated %}
+        <div class="form-group">
+            <label for="{{ form.author_name.id_for_label }}">Ваше имя:</label>
+            {{ form.author_name }}
+            {% if form.author_name.errors %}
+                <div class="error">{{ form.author_name.errors }}</div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <div class="form-group">
+            <label for="{{ form.text.id_for_label }}">Текст отзыва:</label>
+            {{ form.text }}
+            {% if form.text.errors %}
+                <div class="error">{{ form.text.errors }}</div>
+            {% endif %}
+        </div>
+        
+        <button type="submit" class="submit-btn">Отправить отзыв</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/reviews.js' %}"></script>
+{% endblock %}

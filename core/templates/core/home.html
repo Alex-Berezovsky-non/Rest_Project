@@ -1,12 +1,13 @@
-{% extends 'core/base.html' %}
+{% extends 'reviews/list.html' %}
 
-{% block content %}
+{% block reviews_title %}Последние отзывы{% endblock %}
+
+{% block reviews_extra %}
 <section class="hero">
     <h1>{{ welcome_message }}</h1>
     <p>Сайт находится в разработке. Скоро здесь появится наше меню!</p>
 </section>
 
-<!-- Временный контент -->
 <section class="about">
     <h2>О нашем ресторане</h2>
     <p>Al Dente - это настоящая итальянская кухня с 1995 года.</p>

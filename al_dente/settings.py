@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'menu.apps.MenuConfig',
     'reservations.apps.ReservationsConfig',
     'bootstrap_datepicker_plus',
+    'reviews.apps.ReviewsConfig',
 
 ]
 
@@ -93,8 +94,10 @@ STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'menu/static'), 
+    os.path.join(BASE_DIR, 'menu/static'),
+    os.path.join(BASE_DIR, 'core/static'),  
 ]
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
