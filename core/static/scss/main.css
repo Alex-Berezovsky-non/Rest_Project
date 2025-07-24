@@ -61,13 +61,17 @@
   padding-top: 3rem;
 }
 
+.reviews-container {
+  display: grid;
+  gap: 1.5rem;
+}
+
 .review-card {
   padding: 1.5rem;
   background: var(--white);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
-  margin-bottom: 1.5rem;
 }
 
 .review-card:hover {
@@ -83,18 +87,15 @@
   margin-bottom: 1rem;
 }
 
-.stars {
-  display: flex;
+.review-stars {
+  display: inline-flex;
   gap: 0.25rem;
 }
 
-.star {
-  color: var(--medium-gray);
-  font-size: 1.25rem;
-}
-
-.star.active {
+.review-stars .star {
   color: var(--accent-color);
+  font-size: 1.25rem;
+  cursor: default;
 }
 
 .review-author {
@@ -120,6 +121,82 @@
   border-radius: var(--border-radius);
 }
 
+/* ========== Review Form ========== */
+.review-form {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.review-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.review-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.review-form input[type="text"],
+.review-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--medium-gray);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.review-form textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.review-form input[type="text"]:focus,
+.review-form textarea:focus {
+  border-color: var(--accent-color);
+  outline: none;
+}
+
+.star-rating {
+  display: inline-flex;
+  gap: 0.25rem;
+}
+
+.star-rating .star {
+  color: var(--medium-gray);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.star-rating .star:hover,
+.star-rating .star.active {
+  color: var(--accent-color);
+}
+
+.review-form .submit-btn {
+  background: var(--accent-color);
+  color: var(--primary-color);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.review-form .submit-btn:hover {
+  background: #ffca28;
+  transform: translateY(-2px);
+}
+
 /* ========== Responsive Styles ========== */
 @media (max-width: 640px) {
   .hero h1 {
@@ -130,7 +207,12 @@
     padding: 1rem 0;
   }
   
-  .review-card {
+  .review-card,
+  .review-form {
     padding: 1rem;
+  }
+  
+  .star-rating .star {
+    font-size: 1.25rem;
   }
 }
