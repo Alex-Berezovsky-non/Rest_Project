@@ -4,7 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
     class StarRating {
         constructor(container) {
             this.container = container;
-            this.stars = this.container.querySelectorAll('.star');
+            // Получаем звезды в правильном порядке (1→5)
+            this.stars = Array.from(this.container.querySelectorAll('.star'))
+                           .sort((a, b) => parseInt(a.dataset.value) - parseInt(b.dataset.value));
             this.ratingInput = this.container.querySelector('input[type="hidden"]') || 
                               document.getElementById('id_rating');
             
@@ -27,39 +29,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Клик по звезде
                 star.addEventListener('click', (e) => {
                     e.preventDefault();
-                    this.setRating(parseInt(star.getAttribute('data-value')));
+                    this.setRating(parseInt(star.dataset.value));
                 });
                 
                 // Наведение на звезду
                 star.addEventListener('mouseover', () => {
-                    const hoverValue = parseInt(star.getAttribute('data-value'));
-                    this.highlightStars(hoverValue);
+                    this.highlightStars(parseInt(star.dataset.value));
                 });
                 
                 // Клавиатурные события для доступности
                 star.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
-                        this.setRating(parseInt(star.getAttribute('data-value')));
+                        this.setRating(parseInt(star.dataset.value));
                     }
                 });
             });
             
             // Сброс подсветки при уходе мыши
-            this.container.addEventListener('mouseleave', () => {
-                this.updateStars();
-            });
+            this.container.addEventListener('mouseleave', () => this.updateStars());
         }
         
         setRating(value) {
             this.ratingInput.value = value;
             this.updateStars();
-            
         }
         
         highlightStars(upToValue) {
             this.stars.forEach(star => {
-                const starValue = parseInt(star.getAttribute('data-value'));
+                const starValue = parseInt(star.dataset.value);
                 star.classList.toggle('hover', starValue <= upToValue);
             });
         }
@@ -67,31 +65,25 @@ document.addEventListener('DOMContentLoaded', function() {
         updateStars() {
             const currentValue = parseInt(this.ratingInput.value) || 0;
             this.stars.forEach(star => {
-                const starValue = parseInt(star.getAttribute('data-value'));
+                const starValue = parseInt(star.dataset.value);
                 star.classList.toggle('active', starValue <= currentValue);
                 star.classList.remove('hover');
             });
+            
+            // Для отладки 
+            console.log(`Rating updated: ${currentValue}`);
         }
     }
     
     // Инициализация всех компонентов рейтинга на странице
     function initAllStarRatings() {
         const ratingContainers = document.querySelectorAll('.star-rating');
-        if (!ratingContainers.length) return;
-        
-        ratingContainers.forEach(container => {
-            new StarRating(container);
-        });
+        ratingContainers.forEach(container => new StarRating(container));
     }
     
-    // Инициализация при загрузке страницы
-    initAllStarRatings();
-    
+    // Функция для подтверждения удаления отзыва
     function setupReviewDeleteButtons() {
-        const deleteButtons = document.querySelectorAll('.delete-review');
-        if (!deleteButtons.length) return;
-        
-        deleteButtons.forEach(button => {
+        document.querySelectorAll('.delete-review').forEach(button => {
             button.addEventListener('click', function(e) {
                 if (!confirm('Вы уверены, что хотите удалить этот отзыв?')) {
                     e.preventDefault();
@@ -100,5 +92,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Инициализация при загрузке страницы
+    initAllStarRatings();
     setupReviewDeleteButtons();
+    
 });

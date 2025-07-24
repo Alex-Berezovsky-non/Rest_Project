@@ -7,7 +7,7 @@
 
 {% block content %}
 <section class="review-form-section">
-    <h2>{% block form_title %}Оставить отзыв{% endblock %}</h2>
+    <h2>Оставить отзыв</h2>
     
     <form class="review-form" method="post" id="review-form">
         {% csrf_token %}
@@ -21,8 +21,8 @@
         <div class="form-group">
             <label for="id_rating">Рейтинг:</label>
             <div class="star-rating" id="rating-stars">
-                {% for i in "54321" %}
-                <span class="star" data-value="{{ i }}" tabindex="0">★</span>
+                {% for i in "12345" %}
+                <span class="star" data-value="{{ i }}" tabindex="0" aria-label="Оценка {{ i }} из 5">★</span>
                 {% endfor %}
                 {{ form.rating }}
             </div>
@@ -39,8 +39,20 @@
             {% endif %}
         </div>
         
+        {% if form.author_name %}
+        <div class="form-group">
+            <label for="id_author_name">Ваше имя:</label>
+            {{ form.author_name }}
+            {% if form.author_name.errors %}
+            <div class="error">{{ form.author_name.errors }}</div>
+            {% endif %}
+        </div>
+        {% endif %}
         
-        <button type="submit" class="submit-btn">Отправить отзыв</button>
+        <div class="form-actions">
+            <button type="submit" class="submit-btn">Отправить отзыв</button>
+            <a href="{% url 'reviews:list' %}" class="cancel-btn">Отмена</a>
+        </div>
     </form>
 </section>
 {% endblock %}
