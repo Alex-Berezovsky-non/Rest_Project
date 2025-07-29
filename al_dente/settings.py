@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'reservations.apps.ReservationsConfig',
     'bootstrap_datepicker_plus',
     'reviews.apps.ReviewsConfig',
+    'gallery',
 
 ]
 
@@ -93,9 +94,10 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
     os.path.join(BASE_DIR, 'menu/static'),
-    os.path.join(BASE_DIR, 'core/static'),  
+    os.path.join(BASE_DIR, 'core/static'),
+    os.path.join(BASE_DIR, 'reservations/static'),
+    os.path.join(BASE_DIR, 'gallery/static'),
 ]
 
 

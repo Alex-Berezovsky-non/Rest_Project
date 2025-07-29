@@ -5,11 +5,13 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('core.urls')),        # Главная страница
-    path('menu/', include('menu.urls')),  # Меню
+    path('', include('core.urls')),          # Главная страница
+    path('menu/', include('menu.urls')),     # Меню
+    path('gallery/', include('gallery.urls')),  # Галерея ✅
     path('api/reservations/', include('reservations.urls')),  # API бронирования
-    path('reviews/', include('reviews.urls')),  # Отзывы (доступно по /reviews/)
+    path('reviews/', include('reviews.urls')),  # Отзывы
 ]
 
+# Обработка медиа-файлов ТОЛЬКО в режиме DEBUG
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

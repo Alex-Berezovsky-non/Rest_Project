@@ -1,0 +1,15 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'gallery/css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="gallery-container">
+    {% block gallery_content %}{% endblock %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'gallery/js/script.js' %}"></script>
+{% endblock %}

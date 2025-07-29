@@ -1,0 +1,22 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    gap: 5px;
+}
+
+.page-link, .current-page {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    text-decoration: none;
+}
+
+.current-page {
+    background: #f8f9fa;
+    color: #333;
+    font-weight: bold;
+}
+
+.page-link:hover {
+    background: #e9ecef;
+}

@@ -1,50 +1,132 @@
+{# E:\Rest_Project\menu\templates\menu\dish_detail.html #}
 {% extends "core/base.html" %}
 {% load static %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'menu/css/menu.css' %}">
+<link rel="stylesheet" href="{% static 'menu/css/dish_detail.css' %}">
 {% endblock %}
 
 {% block content %}
 <div class="dish-detail-container">
     <div class="dish-header">
-        {% if dish.image %}
-            <img src="{{ dish.image.url }}" 
-                 alt="{{ dish.name }}" 
-                 class="dish-main-photo"
-                 onerror="this.onerror=null;this.src='{% static 'menu/images/default_dish_large.jpg' %}'">
-        {% else %}
-            <img src="{% static 'menu/images/default_dish_large.jpg' %}" 
-                 alt="{{ dish.name }}"
-                 class="dish-main-photo">
-        {% endif %}
+        <div class="dish-images">
+            <div class="main-image">
+                {% if dish.image %}
+                    <img src="{{ dish.image.url }}" alt="{{ dish.name }}" class="dish-main-photo">
+                {% else %}
+                    <img src="{% static 'menu/images/default_dish.jpg' %}" alt="{{ dish.name }}" class="dish-main-photo">
+                {% endif %}
+            </div>
+        </div>
         
-        <div class="dish-heading">
+        <div class="dish-meta">
             <h1>{{ dish.name }}</h1>
-            <div class="price">{{ dish.price }} ₽</div>
             
-            {% if dish.weight %}
-            <div class="weight">Вес: {{ dish.weight }} г</div>
-            {% endif %}
+            <div class="price-section">
+                <span class="price">{{ dish.price }} ₽</span>
+                {% if dish.old_price %}
+                    <span class="old-price">{{ dish.old_price }} ₽</span>
+                {% endif %}
+            </div>
+            
+            <div class="dish-tags">
+                {% if dish.is_vegan %}<span class="tag vegan">🌱 Вегетарианское</span>{% endif %}
+                {% if dish.is_spicy %}<span class="tag spicy">🌶 Острое</span>{% endif %}
+                {% if dish.is_chefs_choice %}<span class="tag chef">👨‍🍳 Выбор шефа</span>{% endif %}
+            </div>
+            
+            <div class="dish-actions">
+                <button class="btn add-to-cart">Добавить в корзину</button>
+                <button class="btn favorite-btn">❤️</button>
+            </div>
         </div>
     </div>
     
-    <div class="dish-meta">
-        {% if dish.is_vegan %}<span class="meta-tag vegan">🌱 Вегетарианское</span>{% endif %}
-        {% if dish.is_spicy %}<span class="meta-tag spicy">🌶 Острое</span>{% endif %}
-        {% if dish.is_chefs_choice %}<span class="meta-tag chef">👨‍🍳 Выбор шефа</span>{% endif %}
-    </div>
-    
-    <div class="ingredients-section">
-        <h2>Ингредиенты</h2>
-        <div class="ingredients-list">
-            {{ dish.ingredients|linebreaks }}
+    <div class="dish-content">
+        <div class="description-section">
+            <h2>Описание</h2>
+            <p>{{ dish.description|linebreaks }}</p>
+        </div>
+        
+        <div class="ingredients-section">
+            <h2>Ингредиенты</h2>
+            <ul class="ingredients-list">
+                {% for ingredient in dish.ingredients.all %}
+                    <li>{{ ingredient.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <div class="nutrition-section">
+            <h2>Пищевая ценность</h2>
+            <table class="nutrition-table">
+                <tr>
+                    <th>Калории</th>
+                    <td>{{ dish.calories }} ккал</td>
+                </tr>
+                <tr>
+                    <th>Белки</th>
+                    <td>{{ dish.proteins }} г</td>
+                </tr>
+                <tr>
+                    <th>Жиры</th>
+                    <td>{{ dish.fats }} г</td>
+                </tr>
+                <tr>
+                    <th>Углеводы</th>
+                    <td>{{ dish.carbohydrates }} г</td>
+                </tr>
+            </table>
         </div>
     </div>
     
-    <div class="dish-actions">
-        <a href="{% url 'menu:dish_list' %}" class="btn back-btn">← Назад в меню</a>
-        <button class="btn order-btn">Заказать</button>
+    {% if dish.gallery_items.exists %}
+    <section class="dish-gallery-preview">
+        <h2>Другие фотографии</h2>
+        <div class="preview-grid">
+            {% for img in dish.gallery_items.all|slice:":3" %}
+            <div class="gallery-item">
+                <a href="{{ img.image.url }}" data-fancybox="dish-gallery">
+                    <img src="{{ img.image.url }}" alt="{{ img.title }}" loading="lazy">
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        <a href="{% url 'gallery:dish_gallery' dish.slug %}" class="btn view-all-btn">
+            Все фотографии ({{ dish.gallery_items.count }})
+        </a>
+    </section>
+    {% endif %}
+    
+    <div class="related-dishes">
+        <h2>Похожие блюда</h2>
+        <div class="related-grid">
+            {% for related in similar_dishes %}
+                <a href="{{ related.get_absolute_url }}" class="related-card">
+                    {% if related.image %}
+                        <img src="{{ related.image.url }}" alt="{{ related.name }}">
+                    {% else %}
+                        <img src="{% static 'menu/images/default_dish.jpg' %}" alt="{{ related.name }}">
+                    {% endif %}
+                    <h3>{{ related.name }}</h3>
+                    <span class="price">{{ related.price }} ₽</span>
+                </a>
+            {% endfor %}
+        </div>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'menu/js/dish_detail.js' %}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Инициализация Fancybox для галереи
+    Fancybox.bind("[data-fancybox='dish-gallery']", {
+        Thumbs: {
+            autoStart: true
+        }
+    });
+});
+</script>
 {% endblock %}

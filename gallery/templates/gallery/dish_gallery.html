@@ -1,0 +1,21 @@
+{% extends "gallery/base_gallery.html" %}
+
+{% block gallery_content %}
+<h1>Фотографии блюда: {{ dish.name }}</h1>
+
+<div class="gallery-grid">
+    {% for img in images %}
+    <div class="gallery-item">
+        <a href="{{ img.image.url }}" data-fancybox="gallery" data-caption="{{ img.title }}">
+            <img src="{{ img.image.url }}" alt="{{ img.title }}" loading="lazy">
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+{% include "includes/pagination.html" %}
+
+<a href="{{ dish.get_absolute_url }}" class="btn-back">
+    ← Вернуться к блюду
+</a>
+{% endblock %}

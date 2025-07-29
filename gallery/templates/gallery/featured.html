@@ -1,0 +1,22 @@
+{% extends "gallery/base_gallery.html" %}
+
+{% block gallery_content %}
+<h1>Избранные фотографии</h1>
+
+<div class="gallery-grid">
+    {% for img in images %}
+    <div class="gallery-item">
+        <a href="{{ img.image.url }}" data-fancybox="featured" data-caption="{{ img.title }}">
+            <img src="{{ img.image.url }}" alt="{{ img.title }}" loading="lazy">
+        </a>
+        {% if img.dishes.exists %}
+        <div class="dish-links">
+            {% for dish in img.dishes.all %}
+            <a href="{{ dish.get_absolute_url }}">{{ dish.name }}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
