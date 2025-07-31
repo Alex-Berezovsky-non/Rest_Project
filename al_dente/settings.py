@@ -14,6 +14,7 @@ DISH_PHOTOS_DIR = 'dishes/photos/'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'bootstrap_datepicker_plus',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -22,9 +23,9 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'menu.apps.MenuConfig',
     'reservations.apps.ReservationsConfig',
-    'bootstrap_datepicker_plus',
     'reviews.apps.ReviewsConfig',
     'gallery',
+    'team',
 
 ]
 

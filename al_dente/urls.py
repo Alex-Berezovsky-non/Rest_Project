@@ -7,7 +7,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),          # Главная страница
     path('menu/', include('menu.urls')),     # Меню
-    path('gallery/', include('gallery.urls')),  # Галерея ✅
+    path('gallery/', include('gallery.urls')),  # Галерея
+    path('team/', include('team.urls')),     # Команда ✅ Добавлено здесь
     path('api/reservations/', include('reservations.urls')),  # API бронирования
     path('reviews/', include('reviews.urls')),  # Отзывы
 ]
