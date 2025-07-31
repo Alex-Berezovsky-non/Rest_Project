@@ -1,0 +1,22 @@
+.events-list {
+  display: grid;
+  gap: 2rem;
+}
+
+.event-card {
+  border: 1px solid #eee;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.event-date {
+  color: #666;
+  font-size: 0.9em;
+}
+
+.event-detail .event-image {
+  max-width: 100%;
+  height: auto;
+  margin: 1rem 0;
+  border-radius: 4px;
+}

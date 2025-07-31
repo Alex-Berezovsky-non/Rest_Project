@@ -8,9 +8,10 @@ urlpatterns = [
     path('', include('core.urls')),          # Главная страница
     path('menu/', include('menu.urls')),     # Меню
     path('gallery/', include('gallery.urls')),  # Галерея
-    path('team/', include('team.urls')),     # Команда ✅ Добавлено здесь
+    path('team/', include('team.urls')),     # Команда 
     path('api/reservations/', include('reservations.urls')),  # API бронирования
     path('reviews/', include('reviews.urls')),  # Отзывы
+    path('events/', include('events.urls')), # События
 ]
 
 # Обработка медиа-файлов ТОЛЬКО в режиме DEBUG

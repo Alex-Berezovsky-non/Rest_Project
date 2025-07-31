@@ -1,0 +1,18 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<article class="event-detail">
+  <h1>{{ event.title }}</h1>
+  <p class="meta">Дата: {{ event.date|date:"d E Y, H:i" }}</p>
+  
+  {% if event.image %}
+    <img src="{{ event.image.url }}" alt="{{ event.title }}" class="event-image">
+  {% endif %}
+  
+  <div class="description">
+    {{ event.description|linebreaks }}
+  </div>
+  
+  <a href="{% url 'upcoming_events' %}" class="btn">← Все события</a>
+</article>
+{% endblock %}

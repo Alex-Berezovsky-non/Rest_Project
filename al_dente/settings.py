@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'reviews.apps.ReviewsConfig',
     'gallery',
     'team',
+    'events.apps.EventsConfig',
 
 ]
 

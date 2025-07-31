@@ -1,0 +1,16 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<h1>Предстоящие события</h1>
+<div class="events-list">
+  {% for event in events %}
+    <div class="event-card">
+      <h2><a href="{{ event.get_absolute_url }}">{{ event.title }}</a></h2>
+      <p class="event-date">{{ event.date|date:"d E Y, H:i" }}</p>
+      <p>{{ event.description|truncatewords:30 }}</p>
+    </div>
+  {% empty %}
+    <p>На данный момент нет запланированных событий.</p>
+  {% endfor %}
+</div>
+{% endblock %}
