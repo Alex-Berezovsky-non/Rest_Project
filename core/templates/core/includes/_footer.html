@@ -1,9 +1,27 @@
 <footer class="footer">
     <div class="container">
-        <p>&copy; 2025 Al Dente. Все права защищены.</p>
-        <address>
-            {{ address|default:"ул. Итальянская, 42" }}, 
-            тел. {{ phone|default:"+7 (123) 456-78-90" }}
-        </address>
+        <div class="footer-content">
+            <div class="footer-info">
+                <p>&copy; 2025 Al Dente. Все права защищены.</p>
+                <address>
+                    {{ address|default:"ул. Итальянская, 42" }}, 
+                    тел. {{ phone|default:"+7 (123) 456-78-90" }}
+                </address>
+            </div>
+            
+            <div class="footer-map">
+                <h3>Мы на карте</h3>
+                <iframe 
+                    src="https://yandex.ru/map-widget/v1/?um=constructor%3Ade4f4df62492f2c8ecab6d5d5d5698f307581dcaf2ac8289b61e55a7f6c8e88c&amp;source=constructor" 
+                    width="100%" 
+                    height="400" 
+                    frameborder="0"
+                    style="border:0;"
+                    allowfullscreen=""
+                    aria-hidden="false"
+                    tabindex="0">
+                </iframe>
+            </div>
+        </div>
     </div>
 </footer>
