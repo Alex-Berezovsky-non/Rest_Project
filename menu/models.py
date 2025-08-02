@@ -125,6 +125,7 @@ class Dish(models.Model):
         verbose_name = _('Блюдо')
         verbose_name_plural = _('Блюда')
         ordering = ['-is_chefs_choice', 'category__order', 'name']
+        db_table = 'menu_dish' 
         indexes = [
             models.Index(fields=['slug']),
             models.Index(fields=['is_chefs_choice']),
