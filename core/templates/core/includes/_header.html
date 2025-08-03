@@ -1,39 +1,69 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-    <div class="container">
-        <a class="navbar-brand" href="{% url 'home' %}">
-            <i class="bi bi-egg-fried"></i> Al Dente
-        </a>
+<!-- core/templates/core/includes/_header.html -->
+<header class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'home' %}">Al Dente</a>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <!-- Главная -->
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}">Главная</a>
+        </li>
         
-        <button class="navbar-toggler" type="button" 
-                data-bs-toggle="collapse" data-bs-target="#mainNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <!-- Меню -->
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'menu:dish_list' %}">Меню</a>
+        </li>
         
-        <div class="collapse navbar-collapse" id="mainNav">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'home' %}">
-                        <i class="bi bi-house"></i> Главная
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'menu:dish_list' %}">
-                        <i class="bi bi-menu-up"></i> Меню
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'gallery:featured' %}">
-                        <i class="bi bi-images"></i> Галерея
-                    </a>
-                </li>
-            </ul>
-            
-            <div class="d-flex">
-                <a href="{% url 'reservations:create' %}" 
-                   class="btn btn-danger">
-                    <i class="bi bi-calendar-check"></i> Бронировать
-                </a>
-            </div>
-        </div>
+        <!-- Бронирование -->
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'reservations:create' %}">Бронирование</a>
+        </li>
+        
+        <!-- Галерея -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="galleryDropdown" role="button" data-bs-toggle="dropdown">
+            Галерея
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'gallery:featured' %}">Избранное</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{% url 'menu:dish_list' %}">Фото блюд</a></li>
+          </ul>
+        </li>
+        
+        <!-- Команда -->
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'team:team_list' %}">Команда</a>
+        </li>
+        
+        <!-- Отзывы -->
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'reviews:list' %}">Отзывы</a>
+        </li>
+        
+        <!-- События -->
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'events:upcoming_events' %}">События</a>
+        </li>
+        
+        <!-- Контакты -->
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'contacts' %}">Контакты</a>
+        </li>
+      </ul>
+      
+      <!-- Поиск -->
+      <div class="d-flex">
+        <form class="d-flex" action="{% url 'menu:dish_list' %}" method="get">
+          <input class="form-control me-2" type="search" name="q" placeholder="Поиск блюд">
+          <button class="btn btn-outline-light" type="submit">Найти</button>
+        </form>
+      </div>
     </div>
-</nav>
+  </div>
+</header>
