@@ -27,7 +27,8 @@ INSTALLED_APPS = [
     'gallery',
     'team',
     'events.apps.EventsConfig',
-
+    'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -38,6 +39,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'al_dente.urls'
@@ -59,14 +61,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'al_dente.wsgi.application'
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -83,15 +83,32 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+# ==================== НАСТРОЙКИ ВРЕМЕНИ И ЛОКАЛИЗАЦИИ ====================
 LANGUAGE_CODE = 'ru-ru'
-
 TIME_ZONE = 'Europe/Moscow'
-
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+# Форматы отображения
+DATETIME_FORMAT = 'd.m.Y H:i'
+DATE_FORMAT = 'd.m.Y'
+TIME_FORMAT = 'H:i'
+
+# Форматы ввода
+TIME_INPUT_FORMATS = [
+    '%H:%M',        # '14:30'
+    '%H:%M:%S',     # '14:30:59'
+    '%H.%M',        # '14.30'
+    '%I:%M %p',     # '02:30 PM'
+]
+
+DATE_INPUT_FORMATS = [
+    '%d.%m.%Y',     # '25.10.2025'
+    '%Y-%m-%d',     # '2025-10-25'
+    '%d/%m/%Y',     # '25/10/2025'
+]
+# ==========================================================================
 
 STATIC_URL = 'static/'
 
@@ -101,7 +118,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'reservations/static'),
     os.path.join(BASE_DIR, 'gallery/static'),
 ]
-
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -126,5 +142,3 @@ ADMIN_EMAIL = 'admin@yourdomain.com'
 TELEGRAM_BOT_API_KEY = os.getenv("TELEGRAM_BOT_API_KEY")
 TELEGRAM_USER_ID = os.getenv("TELEGRAM_USER_ID")
 BASE_URL = os.getenv("BASE_URL")
-# Настройки времени
-TIME_INPUT_FORMATS = ['%H:%M']

@@ -20,8 +20,14 @@
         </li>
         
         <!-- Бронирование -->
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'reservations:create' %}">Бронирование</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="reservationDropdown" role="button" data-bs-toggle="dropdown">
+            Бронирование
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'reservations:create' %}">Забронировать столик</a></li>
+            <li><a class="dropdown-item" href="{% url 'reservations:map' %}">Схема зала</a></li>
+          </ul>
         </li>
         
         <!-- Галерея -->

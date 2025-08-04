@@ -1,0 +1,36 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'reservations/css/restaurant-map.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="map-container">
+    <h1>Схема зала</h1>
+    
+    <div class="map-controls">
+        <div class="time-selector">
+            <input type="date" id="map-date" value="{{ today|date:'Y-m-d' }}">
+            <input type="time" id="map-time" value="19:00">
+            <button id="update-map" class="btn">Обновить</button>
+        </div>
+    </div>
+    
+    <div class="restaurant-map">
+        <!-- Фон зала -->
+        <img src="{% static 'reservations/images/restaurant-plan.jpg' %}" alt="План зала" class="map-background">
+        
+        <!-- Контейнер для столиков -->
+        <div class="tables-container" id="tables-container"></div>
+    </div>
+    
+    <div class="map-legend">
+        <div class="legend-item"><span class="color-box free"></span> Свободно</div>
+        <div class="legend-item"><span class="color-box booked"></span> Занято</div>
+        <div class="legend-item"><span class="color-box vip"></span> VIP</div>
+    </div>
+</div>
+
+<script src="{% static 'reservations/js/restaurant-map.js' %}"></script>
+{% endblock %}
