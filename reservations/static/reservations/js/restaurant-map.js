@@ -1,42 +1,34 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const container = document.getElementById('tables-container');
-    const dateInput = document.getElementById('map-date');
-    const timeInput = document.getElementById('map-time');
-    const updateBtn = document.getElementById('update-map');
+    const BASE_URL = '/api/reservations/'; 
 
-    // Установка текущей даты по умолчанию
-    if (!dateInput.value) {
-        const today = new Date();
-        dateInput.value = today.toISOString().split('T')[0];
-    }
-
-    // Загружает столики при открытии страницы
-    loadTables();
-
-    // Обновляет при изменении времени
-    updateBtn.addEventListener('click', loadTables);
-
-    async function loadTables() {
-        const date = dateInput.value;
-        const time = timeInput.value;
-        
+    const loadTables = async () => {
         try {
-            const response = await fetch(`/api/reservations/tables/availability/?date=${date}&time=${time}`);
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            const tables = await response.json();
+            const date = document.getElementById('map-date').value;
+            const time = document.getElementById('map-time').value;
             
-            if (!Array.isArray(tables)) {
-                throw new Error('Invalid data format');
+            const response = await fetch(
+                `${BASE_URL}api/tables/availability/?date=${date}&time=${time}`,
+                {
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                }
+            );
+            
+            if (!response.ok) {
+                throw new Error(`Ошибка сервера: ${response.status}`);
             }
             
+            const tables = await response.json();
             renderTables(tables);
         } catch (error) {
-            console.error('Ошибка загрузки столиков:', error);
-            alert('Не удалось загрузить данные о столиках. Проверьте консоль для деталей.');
+            console.error('Ошибка:', error);
+            alert('Ошибка загрузки. Проверьте консоль (F12 > Console)');
         }
-    }
+    };
 
-    function renderTables(tables) {
+    const renderTables = (tables) => {
+        const container = document.getElementById('tables-container');
         container.innerHTML = '';
         
         tables.forEach(table => {
@@ -46,22 +38,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 left: ${table.x_pos}px;
                 top: ${table.y_pos}px;
                 transform: rotate(${table.rotation}deg);
+                background-color: ${table.color};
             `;
             tableEl.innerHTML = `
                 <div class="table-number">${table.number}</div>
                 <div class="table-seats">${table.seats} мест</div>
             `;
-            tableEl.title = `Столик №${table.number} (${table.seats} мест)`;
-            
-            tableEl.addEventListener('click', () => {
-                if (!table.is_reserved) {
-                    window.location.href = `/reservations/create/?table=${table.id}&date=${dateInput.value}&time=${timeInput.value}`;
-                } else {
-                    alert('Этот столик уже занят на выбранное время');
-                }
-            });
             
             container.appendChild(tableEl);
         });
-    }
+    };
+
+    // Инициализация
+    loadTables();
+    document.getElementById('update-map').addEventListener('click', loadTables);
 });

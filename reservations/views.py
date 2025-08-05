@@ -1,5 +1,6 @@
 from datetime import time
 from typing import Any, Dict, List
+from django.views import View
 from django.views.generic import CreateView, TemplateView
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -36,41 +37,48 @@ class ReservationCreateView(CreateView):
         return response
 
 
-class TableAvailabilityAPIView(TemplateView):
-    def get(self, request: Any, *args: Any, **kwargs: Any) -> JsonResponse:
-        date = request.GET.get('date', timezone.now().date())
-        time_val = request.GET.get('time', '19:00')
-        
+class TableAvailabilityAPIView(View):
+    def get(self, request, *args, **kwargs):
         try:
-            hours, minutes = map(int, time_val.split(':'))
-            time_obj = time(hours, minutes)
-        except (ValueError, AttributeError):
-            time_obj = time(19, 0)
-        
-        tables: QuerySet[Table] = Table.objects.all()
-        reserved_tables: QuerySet[int] = Reservation.objects.filter(
-            date=date,
-            time__lte=time_obj
-        ).values_list('table_id', flat=True)
-        
-        data: List[Dict[str, Any]] = []
-        for table in tables:
-            table_data = {
+            date = request.GET.get('date', timezone.now().date())
+            time_str = request.GET.get('time', '19:00')
+            
+            try:
+                hours, minutes = map(int, time_str.split(':'))
+                time_obj = time(hours, minutes)
+            except (ValueError, AttributeError):
+                time_obj = time(19, 0)
+            
+            tables = Table.objects.all()
+            reserved_ids = Reservation.objects.filter(
+                date=date,
+                time__lte=time_obj
+            ).values_list('table_id', flat=True)
+            
+            data = [{
                 'id': table.id,
                 'number': table.number,
                 'seats': table.seats,
                 'x_pos': table.x_pos,
                 'y_pos': table.y_pos,
-                'color': table.color or '#4CAF50',
+                'color': '#F44336' if table.id in reserved_ids else '#4CAF50',
                 'rotation': table.rotation or 0,
                 'is_vip': table.is_vip,
-                'is_reserved': table.id in reserved_tables
-            }
-            if table_data['is_reserved']:
-                table_data['color'] = '#F44336'
-            data.append(table_data)
-        
-        return JsonResponse(data, safe=False)
-
+                'is_reserved': table.id in reserved_ids
+            } for table in tables]
+            
+            return JsonResponse(data, safe=False)
+            
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
 
 success_view = TemplateView.as_view(template_name='reservations/success.html')
+
+
+class HallMapView(TemplateView):
+    template_name = 'reservations/map.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['today'] = timezone.now() 
+        return context
