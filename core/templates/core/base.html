@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -6,7 +7,15 @@
     <meta name="description" content="Ресторан итальянской кухни Al Dente в Москве">
     <meta name="keywords" content="ресторан, итальянская кухня, паста, пицца, Москва">
     
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'images/favicon.jpg' %}" type="image/jpeg">
+    
     <title>{% block title %}Al Dente{% endblock %}</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -15,8 +24,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     
     <!-- Кастомные стили -->
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'scss/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'core/css/pagination.css' %}">
     
     {% block extra_css %}{% endblock %}
@@ -24,6 +32,18 @@
 <body>
     <!-- Хедер -->
     {% include 'core/includes/_header.html' %}
+
+    <!-- Сообщения -->
+    {% if messages %}
+    <div class="container mt-3">
+      {% for message in messages %}
+      <div class="alert {{ message.tags }} alert-dismissible fade show">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
 
     <!-- Основное содержимое -->
     <main class="container my-4">

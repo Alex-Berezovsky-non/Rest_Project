@@ -1,6 +1,8 @@
 from django.views.generic import CreateView, ListView
 from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
+from django.contrib import messages
+from django.utils.translation import gettext as _
 from .models import Review
 from .forms import ReviewForm
 
@@ -18,7 +20,14 @@ class ReviewCreateView(CreateView):
             form.instance.author = user
             if not form.cleaned_data.get('author_name'):
                 form.instance.author_name = user.get_full_name()
-        return super().form_valid(form)
+        
+        response = super().form_valid(form)
+        messages.success(
+            self.request,
+            _('Спасибо за ваш отзыв! Мы ценим ваше мнение.'),
+            extra_tags='alert-success'
+        )
+        return response
 
 class ReviewListView(ListView):
     model = Review

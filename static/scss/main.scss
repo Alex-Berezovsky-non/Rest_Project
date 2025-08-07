@@ -1,0 +1,59 @@
+@use 'vars';
+@use 'base';
+@use 'menu';
+@use 'bootstrap_overrides';
+
+body {
+  background-color: vars.$light;
+  color: vars.$dark;
+}
+
+.navbar {
+  background-color: vars.$primary;
+}
+
+.footer {
+  background-color: vars.$dark;
+  color: vars.$secondary;
+}
+
+/* Стили для звёзд рейтинга */
+.star-rating, .review-stars {
+  display: inline-flex;
+  gap: 5px;
+  
+  .star {
+    font-size: 24px;
+    cursor: pointer;
+    color: vars.$star-default;
+    transition: color 0.2s;
+    
+    &.active {
+      color: vars.$star-active;
+    }
+    
+    &:hover, &.hover {
+      color: vars.$star-hover;
+    }
+  }
+}
+
+/* Форма отзывов */
+.review-form {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: vars.$light;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+}

@@ -6,53 +6,79 @@
 {% endblock %}
 
 {% block content %}
-<section class="review-form-section">
-    <h2>Оставить отзыв</h2>
-    
-    <form class="review-form" method="post" id="review-form">
-        {% csrf_token %}
-        
-        {% if form.non_field_errors %}
-        <div class="form-errors">
-            {{ form.non_field_errors }}
+{% if messages %}
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      {% for message in messages %}
+      <div class="alert {{ message.tags }} alert-dismissible fade show">
+        <i class="bi bi-check-circle-fill me-2"></i>
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card border-0 shadow-lg">
+        <div class="card-header bg-primary text-white">
+          <h2 class="h4 mb-0 text-center">Оставить отзыв</h2>
         </div>
-        {% endif %}
         
-        <div class="form-group">
-            <label for="id_rating">Рейтинг:</label>
-            <div class="star-rating" id="rating-stars">
+        <div class="card-body p-4">
+          <form method="post" id="review-form" class="needs-validation" novalidate>
+            {% csrf_token %}
+            
+            {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+              {{ form.non_field_errors }}
+            </div>
+            {% endif %}
+            
+            <div class="mb-4">
+              <label for="id_rating" class="form-label fw-bold">Рейтинг:</label>
+              <div class="star-rating d-flex gap-2" id="rating-stars">
                 {% for i in "12345" %}
-                <span class="star" data-value="{{ i }}" tabindex="0" aria-label="Оценка {{ i }} из 5">★</span>
+                <span class="star fs-3" data-value="{{ i }}" tabindex="0" aria-label="Оценка {{ i }} из 5">★</span>
                 {% endfor %}
                 {{ form.rating }}
+              </div>
+              {% if form.rating.errors %}
+              <div class="invalid-feedback d-block">{{ form.rating.errors }}</div>
+              {% endif %}
             </div>
-            {% if form.rating.errors %}
-            <div class="error">{{ form.rating.errors }}</div>
+            
+            <div class="mb-4">
+              <label for="id_text" class="form-label fw-bold">Текст отзыва:</label>
+              {{ form.text }}
+              {% if form.text.errors %}
+              <div class="invalid-feedback d-block">{{ form.text.errors }}</div>
+              {% endif %}
+            </div>
+            
+            {% if form.author_name %}
+            <div class="mb-4">
+              <label for="id_author_name" class="form-label fw-bold">Ваше имя:</label>
+              {{ form.author_name }}
+              {% if form.author_name.errors %}
+              <div class="invalid-feedback d-block">{{ form.author_name.errors }}</div>
+              {% endif %}
+            </div>
             {% endif %}
+            
+            <div class="d-flex justify-content-between pt-3">
+              <a href="{% url 'reviews:list' %}" class="btn btn-outline-secondary">Отмена</a>
+              <button type="submit" class="btn btn-primary px-4">Отправить отзыв</button>
+            </div>
+          </form>
         </div>
-        
-        <div class="form-group">
-            <label for="id_text">Текст отзыва:</label>
-            {{ form.text }}
-            {% if form.text.errors %}
-            <div class="error">{{ form.text.errors }}</div>
-            {% endif %}
-        </div>
-        
-        {% if form.author_name %}
-        <div class="form-group">
-            <label for="id_author_name">Ваше имя:</label>
-            {{ form.author_name }}
-            {% if form.author_name.errors %}
-            <div class="error">{{ form.author_name.errors }}</div>
-            {% endif %}
-        </div>
-        {% endif %}
-        
-        <div class="form-actions">
-            <button type="submit" class="submit-btn">Отправить отзыв</button>
-            <a href="{% url 'reviews:list' %}" class="cancel-btn">Отмена</a>
-        </div>
-    </form>
-</section>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

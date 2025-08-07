@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'events.apps.EventsConfig',
     'rest_framework',
     'corsheaders',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -113,6 +114,7 @@ DATE_INPUT_FORMATS = [
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
     os.path.join(BASE_DIR, 'menu/static'),
     os.path.join(BASE_DIR, 'core/static'),
     os.path.join(BASE_DIR, 'reservations/static'),
