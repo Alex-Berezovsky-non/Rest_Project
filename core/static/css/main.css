@@ -216,3 +216,27 @@
     font-size: 1.25rem;
   }
 }
+.review-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center; /* Центрирование по горизонтали */
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.review-stars {
+    display: inline-flex;
+    gap: 0.25rem;
+    justify-content: center; /* Центрирование звезд */
+    width: 100%; /* Чтобы flex-центрирование работало */
+}
+
+.review-card {
+    text-align: center; /* Центрирование текста внутри карточки */
+}
+
+.no-reviews {
+    text-align: center;
+    padding: 2rem;
+}

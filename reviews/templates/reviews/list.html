@@ -7,14 +7,14 @@
 {% endblock %}
 
 {% block content %}
-<section class="reviews-section">
+<section class="reviews-section text-center">  
     <h2>{% block reviews_title %}Последние отзывы{% endblock %}</h2>
     
     {% if reviews %}
     <div class="reviews-container">
         {% for review in reviews %}
         <div class="review-card">
-            <div class="review-header">
+            <div class="review-header justify-content-center">  
                 <div class="review-stars">
                     {% for i in "12345" %}
                     <span class="star {% if forloop.counter <= review.rating %}active{% endif %}">★</span>
@@ -23,7 +23,7 @@
                 <span class="review-author">{{ review.author_name }}</span>
                 <span class="review-date">{{ review.created_at|date:"d.m.Y" }}</span>
             </div>
-            <div class="review-text">
+            <div class="review-text text-center">  
                 <p>{{ review.text }}</p>
             </div>
         </div>

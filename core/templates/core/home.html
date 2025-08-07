@@ -4,27 +4,28 @@
 {% block content %}
 <div class="main-content">
   <section class="hero">
+    <section class="hero text-center">
     <h1>{{ welcome_message }}</h1>
     <p>Адрес: {{ address }}</p>
     <p>Телефон: {{ phone }}</p>
     <p>Сайт находится в разработке. Скоро здесь появится наше меню!</p>
   </section>
 
-  <section class="about">
+  <section class="about text-center">
     <h2>О нашем ресторане</h2>
     <p>Al Dente - это настоящая итальянская кухня с 1995 года.</p>
   </section>
 </div>
 
 <!-- Блок отзывов -->
-<div class="reviews-section">
+<div class="reviews-section text-center">
   <h2>Отзывы наших клиентов</h2>
   
   {% if reviews %}
     <div class="reviews-container">
       {% for review in reviews %}
         <div class="review-card">
-          <div class="review-header">
+          <div class="review-header justify-content-center">
             <div class="review-stars">
               {% for i in "12345" %}
                 <span class="star {% if forloop.counter <= review.rating %}active{% endif %}">★</span>
@@ -39,7 +40,7 @@
             </span>
             <span class="review-date">{{ review.created_at|date:"d.m.Y" }}</span>
           </div>
-          <div class="review-text">
+          <div class="review-text text-center">
             <p>{{ review.text }}</p>
           </div>
         </div>
