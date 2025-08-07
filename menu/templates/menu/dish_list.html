@@ -27,7 +27,10 @@
             
             <div class="dish-info">
                 <h3>{{ dish.name }}</h3>
-                <div class="price-badge">{{ dish.price }} ₽</div>
+                <div class="dish-meta">
+                    <span class="category">{{ dish.category.name }}</span> 
+                    <div class="price-badge">{{ dish.price }} ₽</div>
+                </div>
                 
                 <div class="dish-tags">
                     {% if dish.is_vegan %}<span class="tag vegan">🌱 Вегетарианское</span>{% endif %}

@@ -12,7 +12,6 @@ urlpatterns = [
     path('api/reservations/', include('reservations.urls')),  # API бронирования
     path('reviews/', include('reviews.urls')),  # Отзывы
     path('events/', include('events.urls')), # События
-    path('api/reservations/', include('reservations.urls')),  # API бронирования
     path('map/', HallMapView.as_view(), name='map'),  # Карта зала
 ]
 

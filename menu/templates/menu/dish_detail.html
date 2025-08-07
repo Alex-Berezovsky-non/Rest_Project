@@ -34,50 +34,27 @@
                 {% if dish.is_spicy %}<span class="tag spicy">🌶 Острое</span>{% endif %}
                 {% if dish.is_chefs_choice %}<span class="tag chef">👨‍🍳 Выбор шефа</span>{% endif %}
             </div>
-            
-            <div class="dish-actions">
-                <button class="btn add-to-cart">Добавить в корзину</button>
-                <button class="btn favorite-btn">❤️</button>
-            </div>
         </div>
     </div>
     
     <div class="dish-content">
+        {% if dish.description %}
         <div class="description-section">
             <h2>Описание</h2>
             <p>{{ dish.description|linebreaks }}</p>
         </div>
+        {% endif %}
         
-        <div class="ingredients-section">
-            <h2>Ингредиенты</h2>
-            <ul class="ingredients-list">
-                {% for ingredient in dish.ingredients.all %}
-                    <li>{{ ingredient.name }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-        
-        <div class="nutrition-section">
-            <h2>Пищевая ценность</h2>
-            <table class="nutrition-table">
-                <tr>
-                    <th>Калории</th>
-                    <td>{{ dish.calories }} ккал</td>
-                </tr>
-                <tr>
-                    <th>Белки</th>
-                    <td>{{ dish.proteins }} г</td>
-                </tr>
-                <tr>
-                    <th>Жиры</th>
-                    <td>{{ dish.fats }} г</td>
-                </tr>
-                <tr>
-                    <th>Углеводы</th>
-                    <td>{{ dish.carbohydrates }} г</td>
-                </tr>
-            </table>
-        </div>
+        {% if dish.ingredients %}
+<div class="ingredients-section">
+    <h2>Ингредиенты</h2>
+    <ul class="ingredients-list">
+        {% for ingredient in dish.ingredients.split %}
+            <li>{{ ingredient }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
     </div>
     
     {% if dish.gallery_items.exists %}
@@ -98,6 +75,7 @@
     </section>
     {% endif %}
     
+    {% if similar_dishes %}
     <div class="related-dishes">
         <h2>Похожие блюда</h2>
         <div class="related-grid">
@@ -114,6 +92,7 @@
             {% endfor %}
         </div>
     </div>
+    {% endif %}
 </div>
 {% endblock %}
 

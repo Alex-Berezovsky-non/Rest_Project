@@ -8,11 +8,14 @@ class DishListView(ListView):
     template_name = 'menu/dish_list.html'
     
     def get_queryset(self):
-        return Dish.objects.filter(is_active=True).select_related('category')
+        return Dish.objects.filter(
+            category__is_active=True,
+            is_active=True
+        ).select_related('category')
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.all()
+        context['categories'] = Category.objects.filter(is_active=True)
         return context
 
 class DishDetailView(DetailView):
@@ -22,4 +25,7 @@ class DishDetailView(DetailView):
     slug_url_kwarg = 'slug'
     
     def get_queryset(self):
-        return Dish.objects.filter(is_active=True).select_related('category')
+        return Dish.objects.filter(
+            category__is_active=True,
+            is_active=True
+        ).select_related('category')

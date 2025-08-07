@@ -29,6 +29,11 @@ class Category(models.Model):
         null=True,
         help_text=_('Изображение для категории')
     )
+    is_active = models.BooleanField(
+        _('Активна'),
+        default=True,
+        help_text=_('Показывать ли категорию в меню')
+    )
 
     class Meta:
         verbose_name = _('Категория')
@@ -36,6 +41,7 @@ class Category(models.Model):
         ordering = ['order']
         indexes = [
             models.Index(fields=['slug']),
+            models.Index(fields=['is_active']),
         ]
 
     def __str__(self) -> str:

@@ -82,3 +82,15 @@
 
 .back-btn { background: #757575; }
 .order-btn { background: #d32f2f; }
+.dish-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.category {
+    font-size: 14px;
+    color: #666;
+    font-style: italic;
+}
