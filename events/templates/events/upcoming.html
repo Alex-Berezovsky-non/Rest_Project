@@ -5,7 +5,7 @@
 <div class="events-list">
   {% for event in events %}
     <div class="event-card">
-      <h2><a href="{{ event.get_absolute_url }}">{{ event.title }}</a></h2>
+      <h2><a href="{% url 'events:event_detail' event.pk %}">{{ event.title }}</a></h2>
       <p class="event-date">{{ event.date|date:"d E Y, H:i" }}</p>
       <p>{{ event.description|truncatewords:30 }}</p>
     </div>

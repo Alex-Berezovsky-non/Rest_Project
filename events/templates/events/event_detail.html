@@ -13,6 +13,6 @@
     {{ event.description|linebreaks }}
   </div>
   
-  <a href="{% url 'upcoming_events' %}" class="btn">← Все события</a>
+  <a href="{% url 'events:upcoming_events' %}" class="btn">← Все события</a>
 </article>
 {% endblock %}

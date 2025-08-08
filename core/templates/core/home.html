@@ -3,53 +3,80 @@
 
 {% block content %}
 <div class="main-content">
-  <section class="hero">
-    <section class="hero text-center">
-    <h1>{{ welcome_message }}</h1>
-    <p>Адрес: {{ address }}</p>
-    <p>Телефон: {{ phone }}</p>
-    <p>Сайт находится в разработке. Скоро здесь появится наше меню!</p>
+  <section class="hero text-center p-5 mb-4" style="
+    background: linear-gradient(135deg, 
+      var(--italy-green) 0%, 
+      var(--italy-white) 50%, 
+      var(--italy-red) 100%);
+  ">
+    <h1 class="display-5 fw-bold mb-3 text-dark">
+      <i class="bi bi-flag-fill accent-green"></i> 
+      {{ welcome_message }}
+      <i class="bi bi-flag-fill accent-red"></i>
+    </h1>
+    <div class="d-flex justify-content-center gap-4 mb-3">
+      <div class="bg-white p-2 rounded">
+        <i class="bi bi-geo-alt-fill accent-green"></i>
+        <span class="text-dark">{{ address }}</span>
+      </div>
+      <div class="bg-white p-2 rounded">
+        <i class="bi bi-telephone-fill accent-red"></i>
+        <span class="text-dark">{{ phone }}</span>
+      </div>
+    </div>
+    <a href="{% url 'menu:dish_list' %}" class="btn btn-dark btn-lg px-4 py-2 hover-effect">
+      <i class="bi bi-book me-2 accent-gold"></i>Наше меню
+    </a>
+    <p class="fs-5 mt-3 text-dark">Откройте для себя мир итальянской гастрономии, где каждое блюдо - это произведение искусства, а атмосфера переносит вас на солнечные улочки Рима и Венеции.</p>
   </section>
 
-  <section class="about text-center">
-    <h2>О нашем ресторане</h2>
-    <p>Al Dente - это настоящая итальянская кухня с 1995 года.</p>
+  <section class="about text-center bg-white p-4 rounded-3 shadow mb-4">
+    <h2 class="fw-bold mb-3">О нашем ресторане</h2>
+    <p class="fs-5">Al Dente - это настоящая итальянская кухня с 1995 года.</p>
+    <p class="fs-5">Наши шеф-повара создают блюда по старинным рецептам, используя только свежие продукты и итальянские деликатесы.</p>
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+      <span class="badge bg-primary"><i class="bi bi-check-circle me-1"></i>Неаполитанская пицца</span>
+      <span class="badge bg-primary"><i class="bi bi-check-circle me-1"></i>Паста ручной работы</span>
+      <span class="badge bg-primary"><i class="bi bi-check-circle me-1"></i>Свежие морепродукты</span>
+      <span class="badge bg-primary"><i class="bi bi-check-circle me-1"></i>Итальянские вина</span>
+    </div>
   </section>
-</div>
 
-<!-- Блок отзывов -->
-<div class="reviews-section text-center">
-  <h2>Отзывы наших клиентов</h2>
-  
-  {% if reviews %}
-    <div class="reviews-container">
-      {% for review in reviews %}
-        <div class="review-card">
-          <div class="review-header justify-content-center">
-            <div class="review-stars">
-              {% for i in "12345" %}
-                <span class="star {% if forloop.counter <= review.rating %}active{% endif %}">★</span>
-              {% endfor %}
+  <!-- Блок отзывов -->
+  <div class="reviews-section text-center">
+    <h2 class="mb-4">Отзывы наших клиентов</h2>
+    
+    {% if reviews %}
+      <div class="reviews-container">
+        {% for review in reviews %}
+          <div class="review-card bg-light p-3 rounded-3 shadow mb-3">
+            <div class="review-header justify-content-center flex-wrap">
+              <div class="review-stars mb-2">
+                {% for i in "12345" %}
+                  <span class="star {% if forloop.counter <= review.rating %}active{% endif %}">★</span>
+                {% endfor %}
+              </div>
+              <span class="review-author fw-bold w-100">
+                {% if review.author %}
+                  {{ review.author.get_full_name|default:review.author.username }}
+                {% else %}
+                  {{ review.author_name|default:"Аноним" }}
+                {% endif %}
+              </span>
+              <span class="review-date text-muted">{{ review.created_at|date:"d.m.Y" }}</span>
             </div>
-            <span class="review-author">
-              {% if review.author %}
-                {{ review.author.get_full_name|default:review.author.username }}
-              {% else %}
-                {{ review.author_name|default:"Аноним" }}
-              {% endif %}
-            </span>
-            <span class="review-date">{{ review.created_at|date:"d.m.Y" }}</span>
+            <div class="review-text text-center mt-2">
+              <p class="mb-0">{{ review.text }}</p>
+            </div>
           </div>
-          <div class="review-text text-center">
-            <p>{{ review.text }}</p>
-          </div>
-        </div>
-      {% endfor %}
-    </div>
-  {% else %}
-    <div class="no-reviews">
-      <p>Пока нет отзывов. Будьте первым!</p>
-    </div>
-  {% endif %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="no-reviews bg-light p-4 rounded-3">
+        <p class="mb-0">Пока нет отзывов. Будьте первым!</p>
+      </div>
+    {% endif %}
+  </div>
 </div>
-{% endblock %}
+
+{% endblock %} 
