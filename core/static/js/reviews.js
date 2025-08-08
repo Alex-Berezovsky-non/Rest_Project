@@ -95,5 +95,16 @@ document.addEventListener('DOMContentLoaded', function() {
     // Инициализация при загрузке страницы
     initAllStarRatings();
     setupReviewDeleteButtons();
-    
+
+    // Добавляем обработчик для формы отзыва
+    const reviewForm = document.getElementById('review-form');
+    if (reviewForm) {
+        reviewForm.addEventListener('submit', function(e) {
+            const ratingInput = document.getElementById('id_rating');
+            if (ratingInput && !ratingInput.value) {
+                e.preventDefault();
+                alert('Пожалуйста, оцените нас, выбрав количество звезд');
+            }
+        });
+    }
 });
